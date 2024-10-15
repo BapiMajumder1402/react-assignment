@@ -5,10 +5,9 @@ import { ApiResponse } from "../utils/apiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, age } = req.body;
-console.log(req.body);
-
-    if (!name || !email || !age) {
-        throw new ApiError(400, "All fields are required");
+    console.log(req.body);
+    if (!name || !email) {
+        throw new ApiError(400, "Name and email are required");
     }
 
     const existingUser = await User.findOne({ email });
@@ -22,6 +21,7 @@ console.log(req.body);
         new ApiResponse(201, createdUser, "Successfully registered")
     );
 });
+
 
 const logInUser = asyncHandler(async (req, res) => {
     const { email } = req.body;

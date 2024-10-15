@@ -1,7 +1,7 @@
 {
-  "name": "mern-youtube",
+  "name": "mern",
   "version": "1.0.0",
-  "description": "youtube clone",
+  "description": "react-assignment",
   "main": "app.js",
   "type": "module",
   "scripts": {

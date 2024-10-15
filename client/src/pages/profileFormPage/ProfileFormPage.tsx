@@ -4,6 +4,8 @@ import axios from "axios";
 import { UserProfileContext } from "../../contexts/UserProfileContext";
 import { ProfileFormData } from "../../interface/user";
 import useFormErrors from "../../utils/ErrorHandle";
+import { ApiResponse } from "../../interface/user";
+
 
 const ProfileFormPage: React.FC = () => {
     const [formData, setFormData] = useState<ProfileFormData>({
@@ -20,7 +22,6 @@ const ProfileFormPage: React.FC = () => {
         return <p>Error: UserProfileContext is not available.</p>;
     }
 
-    const { setUserProfile } = userProfileContext;
     const { errors, validate, resetErrors } = useFormErrors();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,15 +41,19 @@ const ProfileFormPage: React.FC = () => {
                 ...formData,
                 age: formData.age ? Number(formData.age) : undefined,
             };
-            const response = await axios.post(
-                "https://jsonplaceholder.typicode.com/users",
+            await axios.post<ApiResponse >(
+                "http://localhost:3000/api/v1/user/register",
                 profileData
             );
-            setUserProfile(response.data);
-            navigate("/profile");
-        } catch (error) {
-            console.error("Failed to save profile:", error);
-            setGeneralError("Failed to save profile. Please try again.");
+            navigate("/login");
+        }  catch (error: unknown) {
+            if (axios.isAxiosError(error)) {
+                console.error("Failed to save profile:", error);
+                setGeneralError(error.response?.data?.message || "Something went wrong");
+            } else {
+                console.error("An unexpected error occurred:", error);
+                setGeneralError("Something went wrong");
+            }
         }
     };
 
@@ -64,17 +69,17 @@ const ProfileFormPage: React.FC = () => {
 
                 <div>
                     <label htmlFor="email">Email:</label>
-                    <input type="email"id="email"name="email"value={formData.email}onChange={handleChange}/>
+                    <input type="email" id="email" name="email" value={formData.email} onChange={handleChange}/>
                     {errors.email && <p className="error">{errors.email}</p>}
                 </div>
 
                 <div>
                     <label htmlFor="age">Age (optional):</label>
-                    <input type="number"id="age"name="age"value={formData.age}onChange={handleChange}min="0"/>
+                    <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} min="0"/>
                     {errors.age && <p className="error">{errors.age}</p>}
                 </div>
 
-                {generalError && <p className="error">{generalError}</p>} {/* Display general error */}
+                {generalError && <p className="error">{generalError}</p>}
                 <button type="submit">Save Profile</button>
             </form>
         </div>
