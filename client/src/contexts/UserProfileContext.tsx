@@ -1,10 +1,5 @@
 import React, { createContext, useState, ReactNode, useEffect } from 'react';
-
-interface UserProfile {
-  name: string;
-  email: string;
-  age?: number;
-}
+import { UserProfile } from '../interface/user'; 
 
 interface UserProfileContextType {
   userProfile: UserProfile | null;

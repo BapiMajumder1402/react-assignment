@@ -80,4 +80,22 @@ const deleteUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerUser, logInUser, updateUser, deleteUser };
+const getUser = asyncHandler(async (req, res) => {
+    const { userId } = req.params;
+
+    if (!userId) {
+        throw new ApiError(400, "User ID is required");
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, user, "User retrieved successfully")
+    );
+});
+
+
+export { registerUser, logInUser, updateUser, deleteUser , getUser };

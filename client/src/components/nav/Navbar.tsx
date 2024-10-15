@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; 
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom'; 
 import { UserProfileContext } from '../../contexts/UserProfileContext';  
 
 const NavBar: React.FC = () => {
   const userProfileContext = useContext(UserProfileContext);
-
+  const navigate = useNavigate();
+  
   if (!userProfileContext) {
     return <p>Error: UserProfileContext is not available.</p>;
   }
@@ -15,31 +16,32 @@ const NavBar: React.FC = () => {
   const handleLogout = () => {
     clearUserProfile(); 
     localStorage.removeItem('userProfile');
+    navigate('/');
   };
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar expand="lg" >
       <Navbar.Brand as={Link} to="/">Profile Register App</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/">Home</Nav.Link>
-          <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-          <Nav.Link as={Link} to="/profile-form">Profile Form</Nav.Link>
-          <Nav.Link as={Link} to="/login">Login</Nav.Link>
+          <Nav.Link as={Link} to="/" >Home</Nav.Link>
+          <Nav.Link as={Link} to={`/profile/${userProfile?._id}`} >Profile</Nav.Link>
+          <Nav.Link as={Link} to="/profile-form" >Profile Form</Nav.Link>
+          <Nav.Link as={Link} to="/login" >Login</Nav.Link>
         </Nav>
         <Nav className="ml-auto"> 
           {userProfile ? (
             <>
               <Nav.Item>
-                <Nav.Link disabled>
+                <h4 className="mb-0" style={{marginRight:"1.5rem"}}>
                   {userProfile.name} 
-                </Nav.Link>
+                </h4>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                <Button variant="outline-danger" onClick={handleLogout} style={{ cursor: 'pointer' }}>
                   Logout
-                </Nav.Link>
+                </Button>
               </Nav.Item>
             </>
           ) : (

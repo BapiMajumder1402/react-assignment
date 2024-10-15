@@ -1,8 +1,14 @@
 export interface ProfileFormData {
     name: string;
     email: string;
-    age?: number | '';
+    age?: number | string;
     general?: string; 
+}
+export interface ProfileDisplayFormData {
+    name: string;
+    email: string;
+    age?: number;
+    message?:string
 }
 
 export interface UserResponseData {
@@ -22,3 +28,21 @@ export interface ApiResponse {
     message: string;
     success: boolean;
 }
+
+export interface UpdateProfileModalProps {
+    isOpen: boolean;
+    toggle: () => void;
+    userId: string;
+  }
+
+export interface FeatureCardProps {
+    title: string;
+    description: string;
+  }
+
+export interface UserProfile {
+    name: string;
+    email: string;
+    age?: number;
+    _id?: string
+  }

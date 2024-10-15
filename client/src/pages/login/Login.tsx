@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { UserProfileContext } from '../../contexts/UserProfileContext';
+import { Container, Form, Button } from 'react-bootstrap';
+import { toast } from 'react-hot-toast';
+import { loginUser } from '../../api/services'; 
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
-  const [error, setError] = useState<string | null>(null);
   const userProfileContext = useContext(UserProfileContext);
   const navigate = useNavigate();
 
@@ -17,32 +18,34 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/user/login', {
-        email,
-      });
-      setUserProfile(response.data.data);
-      console.log(response.data.data);
-      localStorage.setItem('userProfile', JSON.stringify(response.data.data));
-      navigate(`/profile/${response.data.data._id}`); 
+      const data = await loginUser(email);
+      setUserProfile(data.data);
+      toast.success(data.message);
+      localStorage.setItem('userProfile', JSON.stringify(data.data));
+      navigate(`/profile/${data.data._id}`);
     } catch (error: any) {
-      setError(error.response?.data?.message || 'Login failed. Please try again.'); 
+      toast.error(error.message);
     }
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
-        </div>
-        {error && <p className="error">{error}</p>}
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <Container className="login-container page">
+      <h2 className="text-center mb-5">Login</h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="email">
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Enter your email"
+          />
+        </Form.Group>
+        <Button variant="primary" type="submit" className="mt-3">Login</Button>
+      </Form>
+    </Container>
   );
 };
 
