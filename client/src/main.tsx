@@ -1,11 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { UserProfileProvider } from "./contexts/UserProfileContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+ReactDOM.render(
+  <React.StrictMode>
+    <UserProfileProvider>
+      <App />
+    </UserProfileProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
