@@ -1,50 +1,88 @@
-# React + TypeScript + Vite
+# Client for User Management Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+This is the client-side application for a user management system built with React and Vite. It provides a user-friendly interface for registering, logging in, and managing user profiles.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **User Registration**: Allows users to create an account.
+- **User Login**: Provides authentication for users.
+- **Profile Management**: Users can view and update their profiles.
+- **Custom Hooks**: Utilizes custom hooks for cleaner and reusable code.
+- **Dynamic Routing**: Implements dynamic routing for a seamless user experience.
+- **Context API**: Manages global state using React's Context API.
+- **Data Persistence**: Persists user data across sessions using local storage
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- **React**: A JavaScript library for building user interfaces.
+- **Vite**: A fast build tool and development server.
+- **Axios**: For making HTTP requests.
+- **Bootstrap**: For styling and responsive design.
+- **React Router**: For routing within the application.
+- **TypeScript**: For type safety.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Prerequisites
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- [Node.js](https://nodejs.org/) (version X.X.X)
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Installation
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/BapiMajumder1402/react-assignment.git
+   cd react-assignment/client
+
+Install dependencies:
+
+bash
+  
+npm install
+Create environment files:
+
+Create an .env.development file in the client directory with the following content:
+
+plaintext
+  
+VITE_API_BASE_URL=http://localhost:3000/api/v1
+We can replace https://our-development-api-url.com with our actual development API URL.
+
+Create an .env.production file in the client directory with the following content:
+
+plaintext
+  
+VITE_API_BASE_URL=http://localhost:3000/api/v1
+We can replace https://our-production-api-url.com with our actual production API URL.
+
+Scripts
+Development Mode: Start the development server.
+
+bash
+npm run dev
+Production Build: Build the application for production.
+
+bash
+npm run build
+Preview: Preview the production build locally.
+
+bash
+npm run preview
+Linting: Run ESLint to check for code issues.
+
+Start in Development Mode:
+bash
+npm run start:dev
+
+Start in Production Mode:
+bash
+npm run start:prod
+
+bash
+npm run lint
+Environment Variables
+The application uses Vite's environment variables, which are prefixed with VITE_. Here's how to configure them:
+
+VITE_API_URL: The base URL for your API. Set this in your .env.development and .env.production files.
+License
