@@ -25,7 +25,10 @@ const Login: React.FC = () => {
       localStorage.setItem('userProfile', JSON.stringify(data.data));
       navigate(`/profile/${data.data._id}`);
     } catch (error: any) {
-      toast.error(error.message);
+      if(error.message=="Account not found"){
+        toast.error("Account not found please create a account first.")
+        navigate('/profile-form')
+      };
     }
   };
 

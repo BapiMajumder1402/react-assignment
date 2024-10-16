@@ -30,7 +30,6 @@ const useFetchUserProfile = (userId: string) => {
             userProfileContext.setUserProfile(userData);
           }
         } catch (error: any) {
-          console.error('Error fetching user data:', error);
           navigate("/404")
           setError('Failed to fetch user data.');
         } finally {
@@ -39,7 +38,7 @@ const useFetchUserProfile = (userId: string) => {
       };
       fetchUserData();
     }
-  }, [userId, userProfileContext]);
+  }, [userId]);
 
   return { loading, error };
 };

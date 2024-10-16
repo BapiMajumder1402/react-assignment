@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { UserProfileContext } from "../../contexts/UserProfileContext"; 
 
 const Footer: React.FC = () => {
+  const userProfileContext = useContext(UserProfileContext);
+  if (!userProfileContext) {
+    return <p>Error: UserProfileContext is not available.</p>;
+  }
+  const { userProfile } = userProfileContext;
   return (
-    <footer className="text-center text-lg-start mt-auto bg-dark text-white">
+    <footer className="text-center text-lg-start mt-auto text-white">
       <Container fluid>
         <Row>
           <Col md={4} className="p-3">
@@ -28,10 +34,17 @@ const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
+                <Link to={`/profile/${userProfile?._id}`} className="text-white">
+                  Profile
+                </Link>
+              </li>
+              {!userProfile && 
+              <li>
                 <Link to="/login" className="text-white">
                   Login
                 </Link>
               </li>
+              }
             </ul>
           </Col>
           <Col md={4} className="p-3">

@@ -21,20 +21,22 @@ const NavBar: React.FC = () => {
 
   return (
     <Navbar expand="lg" >
-      <Navbar.Brand as={Link} to="/">Profile Register App</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">Profile Management App</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
           <Nav.Link as={Link} to="/" >Home</Nav.Link>
           <Nav.Link as={Link} to={`/profile/${userProfile?._id}`} >Profile</Nav.Link>
           <Nav.Link as={Link} to="/profile-form" >Profile Form</Nav.Link>
+          {!userProfile && 
           <Nav.Link as={Link} to="/login" >Login</Nav.Link>
+          }
         </Nav>
         <Nav className="ml-auto"> 
           {userProfile ? (
             <>
               <Nav.Item>
-                <h4 className="mb-0" style={{marginRight:"1.5rem"}}>
+                <h4 className="mb-0" style={{marginRight:"1.5rem",fontWeight:"600"}}>
                   {userProfile.name} 
                 </h4>
               </Nav.Item>
