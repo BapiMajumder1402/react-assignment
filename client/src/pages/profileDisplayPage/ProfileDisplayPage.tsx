@@ -29,7 +29,7 @@ const ProfileDisplayPage: React.FC = () => {
         <Card.Body>
           <Card.Title>Name: {userProfileContext?.userProfile?.name}</Card.Title>
           <Card.Text>Email: {userProfileContext?.userProfile?.email}</Card.Text>
-          <Card.Text>Age: {userProfileContext?.userProfile?.age}</Card.Text>
+          {userProfileContext?.userProfile?.age && <Card.Text>Age: {userProfileContext?.userProfile?.age}</Card.Text>}
           <div className='d-flex align-items-center justify-content-between'>
           <Button variant="primary" onClick={toggleModal} aria-label="Edit Profile">
             Edit Profile
