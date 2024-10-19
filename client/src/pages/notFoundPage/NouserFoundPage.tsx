@@ -11,7 +11,7 @@ const handleGoHome = () => {
 
 return (
     <Container className="text-center mt-5 page">
-        <Image src={notFound} alt="404 Not Found" fluid style={{maxWidth:"40rem"}} />
+        <Image src={notFound} alt="404 Not Found" fluid className="notFoundImg" />
         <h2 className="mt-4">No User Found !</h2>
         <p>Please create profile.</p>
         <Button variant="primary" onClick={handleGoHome}>

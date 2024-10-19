@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
           <Nav.Link as={Link} to={`/profile/${userProfile?._id}`} >Profile</Nav.Link>
           <Nav.Link as={Link} to="/profile-form" >Profile Form</Nav.Link>
           {!userProfile && 
-          <Nav.Link as={Link} to="/login" >Login</Nav.Link>
+          <Nav.Link as={Link} to="/login" className='none'>Login</Nav.Link>
           }
         </Nav>
         <Nav className="ml-auto"> 
